@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="multi-view feed-forward network that directly predicts 3D semantic occupancy via 3D Gaussians">
+  <meta name="keywords" content="VG3T">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VG3T: Visual Geometry Grounded Gaussian Transformer</title>
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/cilab.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-3 publication-title">VG3T: Visual Geometry Grounded Gaussian Transformer</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://junho2000.github.io/">Junho Kim</a>,</span>
+            <span class="author-block">
+              <a href="https://sungonce.github.io/">Seongwon Lee</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Kookmin University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2512.05988"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2512.05988"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/junho2000/VG3T"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay controls muted loop playsinline height="100%">
+        <source src="./static/videos/video.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generating a coherent 3D scene representation from multi-view images is a fundamental yet challenging task. Existing methods often struggle with multi-view fusion, leading to fragmented 3D representations and sub-optimal performance.
+          </p>
+          <p>
+            To address this, we introduce VG3T, a novel multi-view feed-forward network that predicts a 3D semantic occupancy via a 3D Gaussian representation. Unlike prior methods that infer Gaussians from single-view images, our model directly predicts a set of semantically attributed Gaussians in a joint, multi-view fashion. This novel approach overcomes the fragmentation and inconsistency inherent in view-by-view processing, offering a unified paradigm to represent both geometry and semantics. We also introduce two key components, Grid-Based Sampling and Positional Refinement, to mitigate the distance-dependent density bias common in pixel-aligned Gaussian initialization methods.
+          </p>
+          <p>
+            Our VG3T shows a notable 1.7%p improvement in mIoU while using 46% fewer primitives than the previous state-of-the-art on the nuScenes benchmark, highlighting its superior efficiency and performance.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            VG3T processes multi-view images jointly using a VGGT backbone. All camera views are fused early through alternating in-frame and cross-frame attention to build a geometrically consistent feature representation.
+          </p>
+          <p>
+            From these features, the network directly predicts a set of 3D Gaussians with geometry and semantic attributes. To improve efficiency and spatial coverage, redundant Gaussians are removed using grid-based sampling, and the remaining ones are refined with a positional refinement module before being rendered into a 3D semantic occupancy.
+          </p>
+
+          <img class="section-image" src="./static/images/method.png"/>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+
+    <!-- Qualitative Comparison. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Comparison</h2>
+        <div class="content has-text-justified">
+          <p>
+            Compared to prior methods that initialize Gaussians from single views, VG3T produces cleaner and more coherent 3D reconstructions. Early multi-view fusion reduces fragmented geometry and artifacts, while multi-view initialization concentrates Gaussians on occupied regions.
+          </p>
+          <p>
+            As a result, VG3T captures scene structure and small objects more accurately with fewer primitives.
+          </p>
+
+          <img class="section-image" src="./static/images/comparison.png"/>
+        </div>
+      </div>
+    </div>
+    <!--/ Qualitative Comparison. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{kim2025vg3tvisualgeometrygrounded,
+  author    = {Junho Kim and Seongwon Lee},
+  title     = {VG3T: Visual Geometry Grounded Gaussian Transformer},
+  journal   = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2512.05988">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/junho2000" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This webpage template is adapted from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies,</a>
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
